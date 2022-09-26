@@ -1,0 +1,9 @@
+last position: 1
+last poistion: 2
+
+last poistion: 1
+last poistion: 1
+
+last poistion: 3
+
+last poistion: 3
