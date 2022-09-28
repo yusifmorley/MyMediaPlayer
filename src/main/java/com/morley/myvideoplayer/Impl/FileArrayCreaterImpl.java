@@ -1,17 +1,11 @@
 package com.morley.myvideoplayer.Impl;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.Objects;
-
 import com.morley.myvideoplayer.FileArrayCreater;
-import javafx.collections.ObservableList;
-import javafx.scene.media.MediaPlayer;
+
 
 
 //排序 实现compare接口

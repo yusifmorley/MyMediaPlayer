@@ -1,7 +1,7 @@
 # Default ignored files
 
-Telegram/
+/Telegram/
 *.mp4
 /target/
-/src/main/resources/video/Telegram/
+
 
