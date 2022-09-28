@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
@@ -26,10 +28,22 @@ import java.nio.file.Path;
 public class HelloApplicationImpl extends Application {
      private   MediaView mediaView;
      private final ObservableList<MediaPlayer> mediaPlayers=FXCollections.observableArrayList();
-     private int poistion;
+     public static int poistion;
      private final MediaConfigurationImpl mediaConfiguration;
      private Duration allDuration;
      private Boolean play=true;
+
+    private  void  inits() throws IOException {
+        FileArrayCreaterImpl fileArrayCreater=new FileArrayCreaterImpl();
+
+        for(Path f:fileArrayCreater.createFileObjectArray()){
+            //System.out.println(i++); //计数媒体个数
+            //初始化媒体 对象
+            mediaPlayers.add( new MediaPlayer(new Media(f.toUri().toString())));
+        }
+        //当前 要播放的媒体对象  也就是上一次 位置
+
+    }
 
    public HelloApplicationImpl() throws IOException {
            this.mediaConfiguration=new MediaConfigurationImpl();//返回播放上次位置
@@ -37,18 +51,11 @@ public class HelloApplicationImpl extends Application {
            this.poistion=mediaConfiguration.read()-48; //由char 变为int
    }
 
+
    @Override
     public void start(Stage stage) throws IOException {
-        FileArrayCreaterImpl fileArrayCreater=new FileArrayCreaterImpl();
-        int i=0;
-          for(Path f:fileArrayCreater.createFileObjectArray()){
-              //System.out.println(i++); //计数媒体个数
-              //初始化媒体 对象
-            mediaPlayers.add( new MediaPlayer(new Media(f.toUri().toString())));
-          }
-        //当前 要播放的媒体对象  也就是上一次 位置
+        inits();
         mediaView=new MediaView(mediaPlayers.get(this.poistion));
-
         Slider slhorizon=new Slider(); //进度条
         slhorizon.setMax(100);
         slhorizon.setShowTickLabels(true);
@@ -85,10 +92,13 @@ public class HelloApplicationImpl extends Application {
                 mediaPlayers.get(poistion).play();
                 play=true;
             }
+
             //点击事件 一旦点击 立即发生
           mediaPlayers.get(poistion).seek(Duration.INDEFINITE);//媒体进度为结束
+
           mediaPlayers.get(poistion).setOnEndOfMedia(new OnEndOfMediaRunnable(
-                  poistion,mediaView,mediaPlayers,allDuration,slhorizon,timelabel));
+                  mediaView,mediaPlayers,allDuration,slhorizon,timelabel));
+          mediaPlayers.get(poistion).play();
         });
 
         pauseButton.setOnAction(e->{
@@ -109,9 +119,11 @@ public class HelloApplicationImpl extends Application {
             allDuration=mediaPlayers.get(poistion).getStopTime();
             mediaPlayers.get(poistion).seek(mediaPlayers.get(poistion).getCurrentTime().add(mediaPlayers.get(poistion).getCurrentTime().divide(5)));
         });
+       Rectangle2D bounds = Screen.getPrimary().getBounds();
 
-        Scene scene=new Scene(borderPane,650,500);
+       Scene scene=new Scene(borderPane,bounds.getMinX(),bounds.getMinY());
         stage.setTitle("Hello!");
+
         stage.setScene(scene);
         stage.show();
 
@@ -131,6 +143,7 @@ public class HelloApplicationImpl extends Application {
             Duration currentTime = mediaPlayers.get(poistion).getCurrentTime();
             slhorizon.setValue(currentTime.toMillis()/allDuration.toMillis() * 100);
         });
+
         slhorizon.valueProperty().addListener(ov->{
             if(slhorizon.isValueChanging()) {     //加入Slider正在改变的判定，否则由于update线程的存在，mediaPlayer会不停地回绕
                 mediaPlayers.get(poistion).seek(allDuration.multiply(slhorizon.getValue() / 100.0));
@@ -138,7 +151,7 @@ public class HelloApplicationImpl extends Application {
         });
         //视频播放结束
         mediaPlayers.get(poistion).setOnEndOfMedia(new OnEndOfMediaRunnable(
-                poistion,mediaView,mediaPlayers,allDuration,slhorizon,timelabel));
+                   mediaView,mediaPlayers,allDuration,slhorizon,timelabel));
 
         mediaPlayers.get(poistion).setAutoPlay(true);
     }

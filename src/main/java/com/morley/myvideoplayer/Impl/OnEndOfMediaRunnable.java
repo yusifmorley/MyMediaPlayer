@@ -7,15 +7,17 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 
+import static com.morley.myvideoplayer.Impl.HelloApplicationImpl.poistion;
+
 public class OnEndOfMediaRunnable implements Runnable{
-    int poistion;
+
     MediaView mediaView;
     ObservableList<MediaPlayer> mediaPlayers;
     Slider slhorizon;
     Duration allDuration;
     Label timelabel;
-    public OnEndOfMediaRunnable(int poistion, MediaView mediaView, ObservableList<MediaPlayer> mediaPlayers,Duration allDuration ,Slider slhorizon, Label timelabel){
-       this.poistion=poistion;
+    public OnEndOfMediaRunnable( MediaView mediaView, ObservableList<MediaPlayer> mediaPlayers,Duration allDuration ,Slider slhorizon, Label timelabel){
+
        this.mediaView=mediaView;
        this.mediaPlayers=mediaPlayers;
        this.allDuration=allDuration;
@@ -25,6 +27,11 @@ public class OnEndOfMediaRunnable implements Runnable{
 
     @Override
     public void run() {
+
+        if (poistion>mediaPlayers.size()-1){
+            poistion=0;
+
+        }
         poistion++;
         mediaView.setMediaPlayer(mediaPlayers.get(poistion));
         mediaPlayers.get(poistion).setAutoPlay(true);
