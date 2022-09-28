@@ -7,3 +7,11 @@ last poistion: 1
 last poistion: 3
 
 last poistion: 3
+
+last poistion: 3
+
+last poistion: 3
+
+last poistion: 0
+
+last poistion: 0

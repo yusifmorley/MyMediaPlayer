@@ -26,7 +26,7 @@ import java.nio.file.Path;
 public class HelloApplicationImpl extends Application {
      private   MediaView mediaView;
      private final ObservableList<MediaPlayer> mediaPlayers=FXCollections.observableArrayList();
-     private int poistion;
+     public static int poistion;
      private final MediaConfigurationImpl mediaConfiguration;
      private Duration allDuration;
      private Boolean play=true;
@@ -40,14 +40,14 @@ public class HelloApplicationImpl extends Application {
    @Override
     public void start(Stage stage) throws IOException {
         FileArrayCreaterImpl fileArrayCreater=new FileArrayCreaterImpl();
-        int i=0;
+
           for(Path f:fileArrayCreater.createFileObjectArray()){
               //System.out.println(i++); //计数媒体个数
               //初始化媒体 对象
             mediaPlayers.add( new MediaPlayer(new Media(f.toUri().toString())));
           }
         //当前 要播放的媒体对象  也就是上一次 位置
-        mediaView=new MediaView(mediaPlayers.get(this.poistion));
+        mediaView=new MediaView(mediaPlayers.get(poistion));
 
         Slider slhorizon=new Slider(); //进度条
         slhorizon.setMax(100);
@@ -88,7 +88,7 @@ public class HelloApplicationImpl extends Application {
             //点击事件 一旦点击 立即发生
           mediaPlayers.get(poistion).seek(Duration.INDEFINITE);//媒体进度为结束
           mediaPlayers.get(poistion).setOnEndOfMedia(new OnEndOfMediaRunnable(
-                  poistion,mediaView,mediaPlayers,allDuration,slhorizon,timelabel));
+                  mediaView,mediaPlayers,allDuration,slhorizon,timelabel));
         });
 
         pauseButton.setOnAction(e->{
@@ -138,7 +138,7 @@ public class HelloApplicationImpl extends Application {
         });
         //视频播放结束
         mediaPlayers.get(poistion).setOnEndOfMedia(new OnEndOfMediaRunnable(
-                poistion,mediaView,mediaPlayers,allDuration,slhorizon,timelabel));
+                mediaView,mediaPlayers,allDuration,slhorizon,timelabel));
 
         mediaPlayers.get(poistion).setAutoPlay(true);
     }
