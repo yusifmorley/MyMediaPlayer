@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bdbb0f3f-8c88-41d5-9616-6a4c7d6c29f3" name="Changes" comment="gfhg" />
+
+    <list default="true" id="bdbb0f3f-8c88-41d5-9616-6a4c7d6c29f3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/morley/myvideoplayer/Impl/FileArrayCreaterImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/morley/myvideoplayer/Impl/FileArrayCreaterImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/morley/myvideoplayer/Impl/HelloApplicationImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/morley/myvideoplayer/Impl/HelloApplicationImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/morley/myvideoplayer/Impl/OnEndOfMediaRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/morley/myvideoplayer/Impl/OnEndOfMediaRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/MediaConfiguration.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MediaConfiguration.txt" afterDir="false" />
+    </list>
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

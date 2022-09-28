@@ -1,3 +1,3 @@
 # MyMediaPlayer
-A simple mp4 player by javafx
+支持Linux平台视频连续播放 基于JavaFx
 
