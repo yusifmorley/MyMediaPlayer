@@ -28,9 +28,13 @@ public class OnEndOfMediaRunnable implements Runnable{
     @Override
     public void run() {
         poistion++;
-        if (poistion>=mediaPlayers.size()-1)poistion=0;
-        mediaView.setMediaPlayer(mediaPlayers.get(poistion));
+        if (poistion>mediaPlayers.size()-1)poistion=0;
+
+        mediaPlayers.get(poistion).seek(Duration.ZERO);
         mediaPlayers.get(poistion).setAutoPlay(true);
+
+        mediaView.setMediaPlayer(mediaPlayers.get(poistion));
+
         allDuration=mediaPlayers.get(poistion).getStopTime();
         //监听事件
         mediaPlayers.get(poistion).currentTimeProperty().addListener(ov->{

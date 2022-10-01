@@ -81,6 +81,7 @@ public class HelloApplicationImpl extends Application {
         borderPane.setBottom(vBox);
 
         nextButton.setOnAction(e->{
+
             if(!play){   //开启媒体
                 mediaPlayers.get(poistion).play();
                 play=true;
